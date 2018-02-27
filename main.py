@@ -18,7 +18,7 @@ def read_file(file_name):
             for j in range(0, c):
                 matrix[i][j] = new_line[j]
         # print matrix
-    return l, h, matrix
+    return r, c, l, h, matrix
 
 
 def write_file(file_name, s, solution):
@@ -33,6 +33,7 @@ def write_file(file_name, s, solution):
 
 def main():
     read_file("./small.in")
+
     write_file("./output.out", 3, [[0, 0, 1,2], [4,5,6,1], [7,7,8,8]])
 
 

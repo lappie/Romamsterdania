@@ -31,6 +31,7 @@ class Shape:
     def toString(self):
         return str(self.w) + "x" + str(self.h)
 
+
 class Magic:
     shapes = []
     grid = []
