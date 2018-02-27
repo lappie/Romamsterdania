@@ -4,7 +4,7 @@ def shape(min, max):
     shapes = []
     for i in range(1,max+1):
         for j in range(1,max+1):
-            if i*j>=min*2 and i*j<=max:
+            if i*j >= min*2 and i*j <= max:
                 shapes.append([i, j])
     return shapes
 
