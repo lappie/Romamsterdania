@@ -8,7 +8,10 @@ class Part:
         self.y2 = y2
 
     def toString(self):
-        return str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2)
+        return str(self.y1) + " " + str(self.x1) + " " + str(self.y2) + " " + str(self.x2)
+
+    def getScore(self):
+        return (self.x2 - self.x1 + 1) * (self.y2 - self.y1 + 1)
         
 class Shape:
     def __init__(self, w, h):
@@ -37,11 +40,12 @@ class Magic:
 
     results = []
 
-    def __init__(self, R, C, minIngredients, maxParts):
+    def __init__(self, R, C, minIngredients, maxParts, matrix):
         self.R = R
         self.C = C
         self.minIngredients = minIngredients
         self.maxParts = maxParts
+        self.matrix = matrix
 
     def createShapes(self):
         self.shapes = []
@@ -79,17 +83,24 @@ class Magic:
         return True
 
     def place(self, shape, x, y):
-        print("placing: " + shape.toString())
+        #print("placing: " + shape.toString())
         for h in range(shape.h):
             for w in range(shape.w):
                 self.grid[y + h][x + w] = False
 
     #does it contain minimum ingredients
     def valid(self, shape, x, y):
-        return True #todo
+        l = ""
+        for h in range(shape.h):
+            for w in range(shape.w):
+                l += self.matrix[y + h][x + w]
+        if l.count('T') < self.minIngredients or l.count('M') < self.minIngredients:
+            #print(l)
+            return False
+        return True
 
     def addResult(self, shape, x, y):
-        p = Part(x, y, x+shape.w, y+shape.h)
+        p = Part(x, y, x+shape.w-1, y+shape.h-1)
         self.results.append(p)
 
     def greedy(self):
@@ -112,8 +123,14 @@ class Magic:
     def printGrid(self):
         print("Grid:")
         print(self.grid)
-        
 
+    def printScore(self):
+        s = 0
+        for r in self.results:
+            s += r.getScore()
+        print("SCORE: " + str(s))
+        
+'''
 m = Magic(5,4, 1, 3)
 m.createShapes()
 m.printShapes()
@@ -122,3 +139,4 @@ m.createGrid()
 m.greedy()
 m.printResults()
 m.printGrid()
+'''
