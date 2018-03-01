@@ -1,26 +1,28 @@
+from ride import Ride
+
 
 def read_file(file_name):
-    with open(file_name, "r") as f:
-        pass
-        # first_line = f.readline()
-        # r, c, l, h = first_line.split()
-        # r = int(r)
-        # c = int(c)
-        # l = int(l)
-        # h = int(h)
-        # matrix = [[0 for j in range(c)] for i in range(r)]
-        # # print matrix
-        # # print ("%s - %s - %s - %s" %(r,c,l,h))
-        # for i in range(0, r):
-        #     new_line = f.readline()
-        #     for j in range(0, c):
-        #         matrix[i][j] = new_line[j]
+    rides = []
+    with open(file_name, "r") as file:
+        first_line = file.readline()
+        R, C, F, N, B, T = first_line.split()
+        R = int(R)
+        C = int(C)
+        F = int(F)
+        N = int(N)
+        B = int(B)
+        T = int(T)
         # print matrix
-    return "done"
+        # print ("%s - %s - %s - %s" %(r,c,l,h))
+        for i in range(0, R):
+            ride_line = file.readline()
+            a, b, x, y, s, f = ride_line.split()
+            rides.append(Ride(a, b, x, y, s, f))
+        return R, C, F, N, B, T, rides
 
 
 def write_file(file_name, s, solution):
-    with open("./output/%s" % file_name, "w") as f:
+    with open("%s" % file_name, "w") as f:
         f.write("works \n")
         # for i in range(len(solution)):
         #     row = solution[i]
