@@ -14,10 +14,11 @@ def read_file(file_name):
         T = int(T)
         # print matrix
         # print ("%s - %s - %s - %s" %(r,c,l,h))
-        for i in range(0, R):
+        for nr in range(0, R):
             ride_line = file.readline()
-            a, b, x, y, s, f = ride_line.split()
-            rides.append(Ride(int(a), int(b), int(x), int(y), int(s), int(f), int(i)))
+            if len(ride_line) > 0:
+                a, b, x, y, s, f = ride_line.split()
+                rides.append(Ride(int(a), int(b), int(x), int(y), int(s), int(f), nr))
 
         return R, C, F, N, B, T, rides
 
@@ -25,7 +26,8 @@ def read_file(file_name):
 def write_file(file_name, vehicles):
     with open("%s" % file_name, "w") as f:
         for v in vehicles:
-            f.write(v.get_output() + '\n')
+            if len(v.rides) > 0:
+                f.write(v.get_output() + '\n')
         # for i in range(len(solution)):
         #     row = solution[i]
         #     f.write(row.toString())
