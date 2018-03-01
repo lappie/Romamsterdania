@@ -9,10 +9,13 @@ INPUT_FILES = 'a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus'.
 INPUT_FILE = "a_example"
 
 
+
 def solve(file):
     start = datetime.now()
+
     # Rows, Columns, Vehicles, Rides, Bonus, Max Time
     R, C, F, N, B, T, rides = read_file('./input/' + file + '.in')
+    vehicles = [Vehicle() for i in range(F)]
 
     # Start solution here:
     vehicles = [Vehicle() for i in range(F)]
