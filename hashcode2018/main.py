@@ -8,6 +8,7 @@ from vehicle import Vehicle
 INPUT_FILES = 'a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus'.split()
 INPUT_FILE = "b_should_be_easy"
 
+
 def solve(file):
     start = datetime.now()
 
@@ -18,7 +19,7 @@ def solve(file):
     # Start solution here:
     from greedy import greedy
 
-    greedy(R, C, F, B, T, rides)
+    greedy(R, C, vehicles, B, T, rides)
     now = datetime.now()
     write_file("./output/" + file + " - " + str(now.hour) + 'h' + str(now.minute) + 'm' +
                str(now.second) + "s.out", vehicles)
@@ -30,6 +31,7 @@ def solve_all():
     for file in INPUT_FILES:
         print("FILE: " + file)
         solve(file)
+
 
 def main():
     #solve(INPUT_FILE)
