@@ -1,4 +1,5 @@
 import math
+import operator
 
 class Part:
     def __init__(self, x1, y1, x2, y2):
@@ -8,15 +9,19 @@ class Part:
         self.y2 = y2
 
     def toString(self):
-        return str(self.x1) + ", " + str(self.y1) + ", " + str(self.x2) + ", " + str(self.y2)
+        return str(self.y1) + " " + str(self.x1) + " " + str(self.y2) + " " + str(self.x2)
+
+    def getScore(self):
+        return (self.x2 - self.x1 + 1) * (self.y2 - self.y1 + 1)
         
 class Shape:
     def __init__(self, w, h):
         self.w = w
         self.h = h
+        self.score = self.getScore()
 
     def getScore(self):
-        return w*h
+        return self.w*self.h
 
     def viceVersa(self):
         return Shape(self.h, self.w)
@@ -31,18 +36,20 @@ class Shape:
     def toString(self):
         return str(self.w) + "x" + str(self.h)
 
-
 class Magic:
     shapes = []
     grid = []
 
     results = []
 
-    def __init__(self, R, C, minIngredients, maxParts):
+    options = []
+
+    def __init__(self, R, C, minIngredients, maxParts, matrix):
         self.R = R
         self.C = C
         self.minIngredients = minIngredients
         self.maxParts = maxParts
+        self.matrix = matrix
 
     def createShapes(self):
         self.shapes = []
@@ -59,6 +66,8 @@ class Magic:
             if s.w != s.h:
                 self.shapes.append(s.viceVersa())
 
+        #self.shapes = sorted(self.shapes, key=operator.attrgetter('score'), reverse=False)
+
     def printShapes(self):
         print("Shapes:")
         for s in self.shapes:
@@ -67,6 +76,9 @@ class Magic:
 
     def createGrid(self):
         self.grid = [[True] * self.C for r in range(self.R)]
+
+    def createOptions(self):
+        self.options = [[0] * self.C for r in range(self.R)]
 
     def fits(self, shape, x, y):
         if x + shape.w > self.C:
@@ -80,17 +92,24 @@ class Magic:
         return True
 
     def place(self, shape, x, y):
-        print("placing: " + shape.toString())
+        #print("placing: " + shape.toString())
         for h in range(shape.h):
             for w in range(shape.w):
                 self.grid[y + h][x + w] = False
 
     #does it contain minimum ingredients
     def valid(self, shape, x, y):
-        return True #todo
+        l = ""
+        for h in range(shape.h):
+            for w in range(shape.w):
+                l += self.matrix[y + h][x + w]
+        if l.count('T') < self.minIngredients or l.count('M') < self.minIngredients:
+            #print(l)
+            return False
+        return True
 
     def addResult(self, shape, x, y):
-        p = Part(x, y, x+shape.w, y+shape.h)
+        p = Part(x, y, x+shape.w-1, y+shape.h-1)
         self.results.append(p)
 
     def greedy(self):
@@ -104,6 +123,39 @@ class Magic:
                                 self.addResult(s, x, y)
                                 #break: optimize here, break the for loop
 
+    def placeOption(self, s, x, y):
+        for h in range(s.h):
+            for w in range(s.w):
+                self.options[y + h][x + w] += 1
+
+    def findOptions(self):
+        for y in range(self.R):
+            for x in range(self.C):
+                if self.grid[y][x]:
+                    for s in self.shapes:
+                        if self.fits(s, x, y):
+                            if self.valid(s, x, y):
+                                self.placeOption(s, x, y)
+
+    def optionSearch(self):
+        self.createOptions()
+        self.findOptions()
+        minScore = 999
+        minX = 0
+        minY = 0
+        for y in range(self.R):
+            for x in range(self.C):
+                if self.options[y][x] < minScore:
+                    minX = x
+                    minY = y
+                    minScore = self.options[y][x]
+
+    def printOptions(self):
+        print("Options: ")
+        for y in self.options:
+            print(y)
+        print
+
     def printResults(self):
         print("Results: ")
         for r in self.results:
@@ -113,8 +165,14 @@ class Magic:
     def printGrid(self):
         print("Grid:")
         print(self.grid)
-        
 
+    def printScore(self):
+        s = 0
+        for r in self.results:
+            s += r.getScore()
+        print("SCORE: " + str(s))
+        
+'''
 m = Magic(5,4, 1, 3)
 m.createShapes()
 m.printShapes()
@@ -123,3 +181,4 @@ m.createGrid()
 m.greedy()
 m.printResults()
 m.printGrid()
+'''
