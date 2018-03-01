@@ -20,7 +20,7 @@ def read_file(file_name):
 
 
 def write_file(file_name, s, solution):
-    with open("./output/%s" % file_name, "w") as f:
+    with open("%s" % file_name, "w") as f:
         f.write("works \n")
         # for i in range(len(solution)):
         #     row = solution[i]
