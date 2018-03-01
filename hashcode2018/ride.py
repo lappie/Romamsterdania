@@ -30,3 +30,7 @@ class Ride:
         plus = self.distance + bonus
         min = to + wait_time
         return plus - min
+
+    def __eq__(self, other):
+        return self.nr == other.nr
+
