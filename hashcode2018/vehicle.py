@@ -32,4 +32,5 @@ class Vehicle:
     def can_finish_ride(self, ride, current_time):
         if self.distance_to_ride(ride) + ride.distance + current_time < ride.f:
             return True
+        # print "time: %s can't finish this ride: %s " % (current_time, ride)
         return False

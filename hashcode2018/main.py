@@ -34,7 +34,7 @@ def solve_all():
 
 
 def main():
-    #solve(INPUT_FILE)
+    # solve(INPUT_FILE)
     solve_all()
 
 
