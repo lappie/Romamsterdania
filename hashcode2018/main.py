@@ -9,9 +9,12 @@ def main():
     start = datetime.now()
     R, C, F, N, B, T, rides = read_file('./input/' + INPUT_FILE + '.in')
 
+    # Start solution here:
+    vehicles = []
+
     now = datetime.now()
     write_file("./output/" + INPUT_FILE + " - " + str(now.hour) + 'h' + str(now.minute) + 'm' +
-               str(now.second) + "s.out", "", [])
+               str(now.second) + "s.out", vehicles)
     print 'runtime: ' + str(datetime.now()-start)
 
 

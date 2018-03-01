@@ -17,13 +17,14 @@ def read_file(file_name):
         for i in range(0, R):
             ride_line = file.readline()
             a, b, x, y, s, f = ride_line.split()
-            rides.append(Ride(a, b, x, y, s, f, nr))
+            rides.append(Ride(a, b, x, y, s, f, i))
         return R, C, F, N, B, T, rides
 
 
-def write_file(file_name, s, solution):
+def write_file(file_name, vehicles):
     with open("%s" % file_name, "w") as f:
-        f.write("works \n")
+        for v in vehicles:
+            f.write(v.get_output())
         # for i in range(len(solution)):
         #     row = solution[i]
         #     f.write(row.toString())
