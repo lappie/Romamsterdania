@@ -13,3 +13,11 @@ class Vehicle:
             s += ' '
         s += ' '.join(str(ride.nr) for ride in self.rides)
         return s
+
+    def is_in_use(self, current_time):
+        if len(self.rides):
+            last_ride = self.rides[:-1]
+            return last_ride.end_time == -1
+        return False
+
+

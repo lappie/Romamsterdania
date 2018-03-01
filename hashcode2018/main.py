@@ -8,7 +8,8 @@ INPUT_FILE = "a_example"
 def main():
     start = datetime.now()
     R, C, F, N, B, T, rides = read_file('./input/' + INPUT_FILE + '.in')
-
+    from greedy import greedy
+    greedy(R, C, F, B, T, rides)
     now = datetime.now()
     write_file("./output/" + INPUT_FILE + " - " + str(now.hour) + 'h' + str(now.minute) + 'm' +
                str(now.second) + "s.out", "", [])
