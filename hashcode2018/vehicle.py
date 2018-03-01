@@ -5,7 +5,7 @@ class Vehicle:
         self.rides = []
 
     def add_ride(self, r):
-        self.rides.append[r]
+        self.rides.append(r)
 
     def get_output(self):
         s = str(len(self.rides))
