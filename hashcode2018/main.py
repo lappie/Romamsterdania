@@ -1,12 +1,18 @@
-import main_tudor
 from read_write_function import read_file, write_file
+from datetime import datetime
+
+INPUT_FILE = "input"
 
 
 def main():
-    input_data = read_file('./input/input.txt')
-    print input_data
-    out = main_tudor.main()
-    write_file("testing.out", "", [])
+    start = datetime.now()
+    print read_file('./input/' + INPUT_FILE + '.txt')
+
+    now = datetime.now()
+    write_file("./output/" + INPUT_FILE + " - " + str(now.hour) + 'h' + str(now.minute) + 'm' +
+               str(now.second) + "s.out", "", [])
+    print 'runtime: ' + str(datetime.now()-start)
+
 
 if __name__ == '__main__':
     main()
