@@ -4,15 +4,19 @@ from vehicle import Vehicle
 
 def sort_compare_function(item1, item2):
     if item1.s < item2.s:
-        return False
-    if item1.s == item2.s:
-        return item1.distance < item2.distance
-    return True
+        return -1
+    if item1.s == item2.s and item1.distance < item2.distance:
+        return -1
+    return 1
+
+
+def select_ride_for_vehicle(rides, vehicle):
+    pass
 
 
 def greedy(rows, columns, cars, bonus,  T, rides):
-    sorted(reversed(rides), cmp=sort_compare_function)
-
+    rides = sorted(rides, cmp=sort_compare_function)
+    print rides
     for t in range(T):
         for vehicle in cars:
             vehicle.try_to_end_ride(t)
@@ -20,4 +24,5 @@ def greedy(rows, columns, cars, bonus,  T, rides):
                 # get a ride
                 if not len(rides):
                     break
+                # select_ride_for_vehicle()
                 vehicle.add_ride(rides.pop(0))

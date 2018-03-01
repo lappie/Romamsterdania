@@ -23,5 +23,5 @@ class Vehicle:
         if last_ride.start_time + last_ride.distance == current_time:
             last_ride.end_time = current_time
             self.is_in_use = False
-
-
+            self.x = last_ride.x
+            self.y = last_ride.y
