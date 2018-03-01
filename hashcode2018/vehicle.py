@@ -5,6 +5,9 @@ class Vehicle:
         self.rides = []
         self.is_in_use = False
 
+    def distance_to_ride(self, ride):
+        return abs(self.x - ride.a) + abs(self.y - ride.b)
+
     def add_ride(self, r):
         self.rides.append(r)
         self.is_in_use = True
@@ -25,3 +28,8 @@ class Vehicle:
             self.is_in_use = False
             self.x = last_ride.x
             self.y = last_ride.y
+
+    def can_finish_ride(self, ride, current_time):
+        if self.distance_to_ride(ride) + ride.distance + current_time < ride.f:
+            return True
+        return False

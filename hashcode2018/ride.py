@@ -13,3 +13,6 @@ class Ride:
 
     def __repr__(self):
         return "\n(%s,%s) -> (%s-%s) start at %s , end by %s" % (self.a, self.b, self.x, self.y, self.s, self.f)
+
+    def __eq__(self, other):
+        return self.nr == other.nr
