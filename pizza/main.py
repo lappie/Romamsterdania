@@ -34,17 +34,22 @@ def write_file(file_name, s, solution):
 
 
 def main():
-    f = "big"
+    f = "example"
     read_file("./input/" + f + ".in")
     m = magic.Magic(r, c, l, h, matrix)
     m.createShapes()
     m.printShapes()
 
     m.createGrid()
-    m.greedy()
+    #m.greedy()
     #m.printResults()
     #m.printGrid()
     m.printScore()
+
+    m.createOptions()
+    m.findOptions()
+    m.printOptions()
+    
     write_file("./output/" + f + ".out", len(m.results), m.results)
 
 

@@ -1,4 +1,5 @@
 import math
+import operator
 
 class Part:
     def __init__(self, x1, y1, x2, y2):
@@ -17,9 +18,10 @@ class Shape:
     def __init__(self, w, h):
         self.w = w
         self.h = h
+        self.score = self.getScore()
 
     def getScore(self):
-        return w*h
+        return self.w*self.h
 
     def viceVersa(self):
         return Shape(self.h, self.w)
@@ -34,12 +36,13 @@ class Shape:
     def toString(self):
         return str(self.w) + "x" + str(self.h)
 
-
 class Magic:
     shapes = []
     grid = []
 
     results = []
+
+    options = []
 
     def __init__(self, R, C, minIngredients, maxParts, matrix):
         self.R = R
@@ -63,6 +66,8 @@ class Magic:
             if s.w != s.h:
                 self.shapes.append(s.viceVersa())
 
+        #self.shapes = sorted(self.shapes, key=operator.attrgetter('score'), reverse=False)
+
     def printShapes(self):
         print("Shapes:")
         for s in self.shapes:
@@ -71,6 +76,9 @@ class Magic:
 
     def createGrid(self):
         self.grid = [[True] * self.C for r in range(self.R)]
+
+    def createOptions(self):
+        self.options = [[0] * self.C for r in range(self.R)]
 
     def fits(self, shape, x, y):
         if x + shape.w > self.C:
@@ -114,6 +122,26 @@ class Magic:
                                 self.place(s, x, y) 
                                 self.addResult(s, x, y)
                                 #break: optimize here, break the for loop
+
+    def placeOption(self, s, x, y):
+        for h in range(s.h):
+            for w in range(s.w):
+                self.options[y + h][x + w] += 1
+
+    def findOptions(self):
+        for y in range(self.R):
+            for x in range(self.C):
+                if self.grid[y][x]:
+                    for s in self.shapes:
+                        if self.fits(s, x, y):
+                            if self.valid(s, x, y):
+                                self.placeOption(s, x, y)
+
+    def printOptions(self):
+        print("Options: ")
+        for y in self.options:
+            print(y)
+        print
 
     def printResults(self):
         print("Results: ")
