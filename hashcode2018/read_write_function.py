@@ -17,7 +17,7 @@ def read_file(file_name):
         for i in range(0, R):
             ride_line = file.readline()
             a, b, x, y, s, f = ride_line.split()
-            rides.append(Ride(a, b, x, y, s, f, nr))
+            rides.append(Ride(int(a), int(b), int(x), int(y), int(s), int(f), int(i)))
         return R, C, F, N, B, T, rides
 
 
