@@ -6,7 +6,7 @@ from vehicle import Vehicle
 
 # a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus
 INPUT_FILES = 'a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus'.split()
-INPUT_FILE = "a_example"
+INPUT_FILE = "b_should_be_easy"
 
 
 
@@ -36,8 +36,8 @@ def solve_all():
 
 
 def main():
-    solve(INPUT_FILE)
-    #solve_all()
+    #solve(INPUT_FILE)
+    solve_all()
 
 
 if __name__ == '__main__':
