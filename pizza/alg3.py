@@ -58,7 +58,7 @@ def init_score_matrix(c, r):
 
 
 def main_alg():
-    r, c, l, h, matrix = read_file('./example.in')
+    r, c, l, h, matrix = read_file('./pizza/example.in')
     shapes = get_shapes(l, h)
     shapes_with_deviation = get_shapes_with_deviation(shapes)
     print len(shapes_with_deviation)
