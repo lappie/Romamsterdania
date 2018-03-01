@@ -137,6 +137,19 @@ class Magic:
                             if self.valid(s, x, y):
                                 self.placeOption(s, x, y)
 
+    def optionSearch(self):
+        self.createOptions()
+        self.findOptions()
+        minScore = 999
+        minX = 0
+        minY = 0
+        for y in range(self.R):
+            for x in range(self.C):
+                if self.options[y][x] < minScore:
+                    minX = x
+                    minY = y
+                    minScore = self.options[y][x]
+
     def printOptions(self):
         print("Options: ")
         for y in self.options:
