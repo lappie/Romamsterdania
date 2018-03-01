@@ -1,4 +1,3 @@
-import math
 
 
 class Simple:
@@ -7,5 +6,6 @@ class Simple:
         self.vehicles = vehicles
 
     def simple(self):
-        for i in range(math.min(len(self.rides), len(self.vehicles))):
+        for i in range(len(self.vehicles)):
             self.vehicles[i].add_ride(self.rides[i])
+        return self.vehicles

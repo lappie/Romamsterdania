@@ -24,7 +24,7 @@ def read_file(file_name):
 def write_file(file_name, vehicles):
     with open("%s" % file_name, "w") as f:
         for v in vehicles:
-            f.write(v.get_output())
+            f.write(v.get_output() + '\n')
         # for i in range(len(solution)):
         #     row = solution[i]
         #     f.write(row.toString())
