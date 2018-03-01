@@ -2,12 +2,12 @@ from read_write_function import read_file, write_file
 from datetime import datetime
 
 # a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus
-INPUT_FILE = "input"
+INPUT_FILE = "a_example"
 
 
 def main():
     start = datetime.now()
-    print read_file('./input/' + INPUT_FILE + '.txt')
+    R, C, F, N, B, T, rides = read_file('./input/' + INPUT_FILE + '.in')
 
     now = datetime.now()
     write_file("./output/" + INPUT_FILE + " - " + str(now.hour) + 'h' + str(now.minute) + 'm' +
