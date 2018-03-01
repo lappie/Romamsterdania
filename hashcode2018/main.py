@@ -6,7 +6,7 @@ from vehicle import Vehicle
 
 # a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus
 INPUT_FILES = 'a_example b_should_be_easy c_no_hurry d_metropolis e_high_bonus'.split()
-INPUT_FILE = "c_no_hurry"
+INPUT_FILE = "d_metropolis"
 
 
 
@@ -20,7 +20,7 @@ def solve(file):
     # Start solution here:
     vehicles = [Vehicle() for i in range(F)]
     simple = Simple(rides, vehicles)
-    vehicles = simple.simple2()
+    vehicles = simple.simple3(B, T)
 
     now = datetime.now()
     write_file("./output/" + file + " - " + str(now.hour) + 'h' + str(now.minute) + 'm' +

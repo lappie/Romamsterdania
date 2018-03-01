@@ -1,3 +1,5 @@
+from util import distance
+
 class Ride:
     def __init__(self, a, b, x, y, s, f, nr):
         self.a = a
@@ -13,3 +15,18 @@ class Ride:
 
     def __repr__(self):
         return "\n(%s,%s) -> (%s-%s) start at %s , end by %s" % (self.a, self.b, self.x, self.y, self.s, self.f)
+
+    def getScore(self, B, T, posX, posY, time):
+        to = distance(posX, posY, self.a, self.b)
+        if time + to + self.distance > T:
+            return -999999
+        bonus = 0
+        if time + to < self.s:
+            bonus = B
+        wait_time = 0
+        if time + to < self.s:
+            wait_time = self.s - time - to
+
+        plus = self.distance + bonus
+        min = to + wait_time
+        return plus - min

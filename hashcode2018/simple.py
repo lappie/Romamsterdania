@@ -20,6 +20,41 @@ class Simple:
         rides.sort(key=lambda ride: distance(ride.x, ride.y, 0, 0))
         return rides
 
+    def simple3(self, B, T):
+        # first ones are clear:
+        myRides = copy.copy(self.rides)
+        myRides.sort(key=lambda ride : ride.getScore(B, T, 0, 0, 0))
+
+        for vehicle in self.vehicles:
+            vehicle.add_ride(myRides.pop())
+
+        #
+        change = True
+        while change:
+            change = False
+            for vehicle in self.vehicles:
+                myRides.sort(key=lambda ride: ride.getScore(B, T, vehicle.get_last_x(), vehicle.get_last_y(), vehicle.get_available_time()))
+                if len(myRides) > 0: # and myRides[0].getScore(B, vehicle.get_last_x(), vehicle.get_last_y(), vehicle.get_available_time()):
+                    vehicle.add_ride(myRides.pop())
+                    change = True
+
+
+        for i in range(len(self.vehicles)):
+            vehicle = self.vehicles[i]
+            available_time = vehicle.get_available_time()
+            best_rides = self.filter_impossible_rides(myRides, vehicle.get_last_x(), vehicle.get_last_y(),
+                                                      available_time)
+            if len(best_rides) > 0:
+                best_rides.sort(key=lambda ride: distance(ride.x, ride.y, 0, 0))
+                ride = best_rides[0]
+                vehicle.add_ride(ride)
+                myRides.remove(ride)
+                print(len(myRides))
+
+        return self.vehicles
+
+
+
     def simple2(self):
         myRides = copy.copy(self.rides)
         self.sorted_rides(myRides)
